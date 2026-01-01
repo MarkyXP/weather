@@ -1,0 +1,14 @@
+Based on the following Wikipedia article return the one/two most iconic landmarks for {{location}}:
+
+# Example 1: Location Paris
+# Reply: Eiffel Tower, Louvre Museum, Notre-Dame Cathedral
+
+# Example 2: Location New York City
+# Reply: Empire State Building, Statue of Liberty
+
+[Reference Wikipedia article]
+{{article}}
+[/Reference Wikipedia article]
+
+Location {{location}}
+Reply: 

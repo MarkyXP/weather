@@ -1,0 +1,15 @@
+Read the attached article carefully for a region, and extract the coordinates of the region.
+
+For example:
+# Location - Paris
+# Reply: (48.8575N, 2.3514E)
+
+# Location - New York
+# Reply: (40.7128N, 74.0060W)
+
+
+[Reference Wikipedia article]
+{{article}}
+[/Reference Wikipedia article]
+
+Reply: 
