@@ -1,13 +1,13 @@
 import wikipedia
 
 
-def get_details(location : str):
+def get_details(location: str):
     """
     Gets some information about a location (from wiki)
 
     Args:
         location: The name of the location to search for.
-    
+
     Returns:
         A string containing details about the location.
 
@@ -23,6 +23,8 @@ def get_details(location : str):
     lat, long = [float(v) for v in location_page.coordinates]
     return content, lat, long
 
+
 if __name__ == "__main__":
     import doctest
+
     doctest.testmod(verbose=True, optionflags=doctest.ELLIPSIS)

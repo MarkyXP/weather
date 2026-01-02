@@ -27,4 +27,5 @@ nav:
       - Advanced: advanced.md
   - Code:
       - Weather: weather.md
+      - Weather Schema: weather_schema.md
       - Utils: utils.md

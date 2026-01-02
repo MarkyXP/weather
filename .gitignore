@@ -1,10 +1,11 @@
-# Python-generated files
+# Python & VS Code generated files
 __pycache__/
 *.py[oc]
 build/
 dist/
 wheels/
 *.egg-info
+.vscode
 
 # Virtual environments
 .venv
@@ -13,3 +14,5 @@ wheels/
 .env
 database.db
 
+# Scratchpad
+.Notebooks

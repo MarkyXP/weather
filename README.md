@@ -29,3 +29,6 @@ If you like this project I highly recommend you check them out, and consider [pu
 I started working on this due to the 'call to action' in [this reddit post](https://www.reddit.com/r/Python/comments/1py6pez/monday_daily_thread_project_ideas/).
 
 
+## Documentation
+TBC.
+

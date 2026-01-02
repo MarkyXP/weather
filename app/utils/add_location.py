@@ -5,12 +5,12 @@ This module contains the following functions:
 - `add(location)` - Adds the location to the database
 """
 
-
-from app.database.db import Location_Metadata
 import app.location.details as location
+from app.database.db import Location_Metadata
 from app.location import llm
 
-def add(location_name : str) -> int:
+
+def add(location_name: str) -> int:
     """
     Checks the database if the location_name already exists, if it doesn't
     it uses wiki & an LLM to get landmarks & the lat/long of the location,
@@ -24,7 +24,7 @@ def add(location_name : str) -> int:
 
     Raises:
         ValueError if the location is already in the database.
-    
+
     Usage:
         >>> add('Melbourne')
         1
@@ -38,20 +38,20 @@ def add(location_name : str) -> int:
     landmarks = llm.get_landmarks(location_name, details)
     # lat, long = llm.get_lat_long(details)
     loc = Location_Metadata.create(
-        name_lower = location_name.lower().strip(),
-        name = location_name,
-        wiki_data = details,
-        landmarks = landmarks,
-        lat = lat,
-        long = long
+        name_lower=location_name.lower().strip(),
+        name=location_name,
+        wiki_data=details,
+        landmarks=landmarks,
+        lat=lat,
+        long=long,
     )
     return loc.id
 
+
 if __name__ == "__main__":
     from app.database.db import setup
+
     setup()
     import doctest
-    doctest.testmod(
-        verbose=True,
-        optionflags=doctest.ELLIPSIS
-    )
+
+    doctest.testmod(verbose=True, optionflags=doctest.ELLIPSIS)
