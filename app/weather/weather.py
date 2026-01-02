@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 _URL = "http://api.weatherapi.com/v1/current.json"
 
 
-async def get_httpx_client(app : FastAPI)
+async def get_httpx_client(app : FastAPI):
     """
     Provides an httpx.AsyncClient instance for dependency injection.
 

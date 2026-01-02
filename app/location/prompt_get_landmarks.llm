@@ -1,10 +1,10 @@
 Based on the following Wikipedia article return the one/two most iconic landmarks for {{location}}:
 
 # Example 1: Location Paris
-# Reply: Eiffel Tower, Louvre Museum, Notre-Dame Cathedral
+# Reply: Eiffel Tower (A lattice structure of puddle iron, with four tapered legs joined by girders, creating viewing platforms), Louvre Museum (transparent glass Pyramid and smaller pyramids in the central Cour Napoléon), Notre-Dame Cathedral (French Gothic architecture, flying buttresses, rose windows, gargoyles, and twin towers)
 
 # Example 2: Location New York City
-# Reply: Empire State Building, Statue of Liberty
+# Reply: Empire State Building (Art Deco supertall skyscraper, limestone blonde colour, tiered, receding setbacks towards the top), Statue of Liberty (a colossal green copper statue of a classically robed woman, holding a torch in her right hand and a tablet in her left, with seven rays extending from her crown)
 
 [Reference Wikipedia article]
 {{article}}

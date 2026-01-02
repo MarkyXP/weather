@@ -1,0 +1,30 @@
+site_name: Weather
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: black
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: switch to light mode
+    - scheme: default
+      primary: black
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: switch to dark mode
+
+plugins:
+  - search
+  - mkdocstrings
+
+nav:
+  - Home: index.md
+  - About: about.md
+  - Guide:
+      - Getting Started: getting-started.md
+      - Advanced: advanced.md
+  - Code:
+      - Weather: weather.md
+      - Utils: utils.md

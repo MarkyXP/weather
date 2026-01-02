@@ -1,13 +1,33 @@
+"""Business logic that connects between the Details, Database, and LLM
+to add a location to the system
+
+This module contains the following functions:
+- `add(location)` - Adds the location to the database
+"""
+
+
 from app.database.db import Location_Metadata
 import app.location.details as location
 from app.location import llm
 
-def add(location_name : str):
+def add(location_name : str) -> int:
     """
+    Checks the database if the location_name already exists, if it doesn't
+    it uses wiki & an LLM to get landmarks & the lat/long of the location,
+    and stores them in the database.
+
+    Args:
+        location_name (str): Name of the place (e.g. 'Melbourne')
+
+    Returns:
+        The ID of the location in the database
+
+    Raises:
+        ValueError if the location is already in the database.
     
     Usage:
-    >>> add('Melbourne')
-    1
+        >>> add('Melbourne')
+        1
     """
     location_name = location_name.strip()
     existing_location = Location_Metadata.select().where(

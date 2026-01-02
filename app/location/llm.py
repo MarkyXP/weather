@@ -3,6 +3,7 @@
 # chmod +x ./llamafile-0.9.3
 # https://docs.litellm.ai/docs/providers/ollama
 from typing import Tuple
+import json
 
 from litellm import completion
 
@@ -37,4 +38,6 @@ def get_landmarks(location : str, wiki_page : str) -> str:
             }
         }
     )
-    return response.choices[0].message.content
+    resp = response.choices[0].message.content
+    jResp = json.loads(resp)
+
