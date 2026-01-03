@@ -15,6 +15,7 @@ from contextlib import asynccontextmanager
 import httpx
 from fastapi import FastAPI
 
+from app.core import async_cache
 from app.core.config import CONFIG
 from app.schemas import weather_schema
 
@@ -56,12 +57,14 @@ async def get_current(
     ret_val = weather_schema.Current_Weather.model_validate_json(response.content)
     return ret_val
 
-
+#@cachetools_async.cached(cache=cachetools.TTLCache(maxsize=8096, ttl=3600))
+@async_cache.disk_cached()
 async def get_forecast(
     client: httpx.AsyncClient, location: str
 ) -> weather_schema.Forecast_Weather:
     """
-    Get the _forecast_ weather information for a location
+    Get the _forecast_ weather information for a location.
+    Note that the forecase it cached for 1 hour.
 
     Args:
         client (httpx.AsyncClient): A web client to perform the get request

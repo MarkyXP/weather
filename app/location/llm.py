@@ -1,11 +1,11 @@
-# https://justine.lol/oneliners/
-
-# chmod +x ./llamafile-0.9.3
-# https://docs.litellm.ai/docs/providers/ollama
 import json
 from typing import Tuple
 
-from litellm import completion
+from gradio_client import Client, file
+
+from app.core.config import CONFIG
+
+_client = Client("Qwen/Qwen3-Demo", HF_TOKEN=CONFIG.HF_TOKEN)
 
 
 def _get_landmarks_prompt(location: str, article: str):
@@ -17,21 +17,10 @@ def _get_landmarks_prompt(location: str, article: str):
 
 
 def get_landmarks(location: str, wiki_page: str) -> str:
-    response = completion(
-        model="ollama_chat/gpt-oss",
-        messages=[
-            {"role": "user", "content": _get_landmarks_prompt(location, wiki_page)}
-        ],
-        api_base="http://localhost:11434",
-        response_format={
-            "type": "json_schema",
-            "json_schema": {
-                "schema": {
-                    "type": "object",
-                    "properties": {"iconic_landmark_no_1": {"type": "string"}},
-                }
-            },
-        },
+    result = _client.predict(
+        input_value=_get_landmarks_prompt(location, wiki_page),
+        settings_form_value={"model": "qwen3-30b-a3b", "thinking_budget": 38},
+        api_name="/add_message",
     )
     resp = response.choices[0].message.content
     jResp = json.loads(resp)

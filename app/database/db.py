@@ -1,39 +1,37 @@
-# https://github.com/coleifer/peewee
-import peewee as _db
+import asyncio
+from contextlib import asynccontextmanager
+from typing import Optional
 
-db = _db.SqliteDatabase("database.db")
-
-
-class _DB_BaseModel(_db.Model):
-    class Meta:
-        database = db
+import aiofiles
+import onlymaps.asyncio as onlymaps
+from fastapi import FastAPI
 
 
-class Location_Metadata(_DB_BaseModel):
-    id = _db.AutoField()  # Primary Key Auto Increment
-    name_lower = _db.CharField(unique=True)
-    name = _db.CharField(unique=True)
-    wiki_data = _db.TextField()
-    landmarks = _db.TextField()
-    lat = _db.FloatField()
-    long = _db.FloatField()
+@asynccontextmanager
+async def get_db(
+    app: Optional[FastAPI] = None, connection_string: Optional[str] = None
+):
+    if not connection_string:
+        connection_string = "sqlite:///:memory"
+    async with onlymaps.connect(connection_string) as db:
+        await _create_tables(db)
+        if app:
+            app.db = db
+        yield db
 
 
-class Forecast(_DB_BaseModel):
-    location = _db.ForeignKeyField(Location_Metadata, backref="forecasts")
-    start_time = _db.DateTimeField()
-    temp_c = _db.TextField()
-    condition = _db.TextField()
-    wind_kph = _db.FloatField()
-    gust_kph = _db.FloatField()
-    precipitation = _db.FloatField()
+async def _create_table(db: onlymaps.AsyncDatabase, table_name: str):
+    filename = f"app/database/create_{table_name.lower()}.sql"
+    async with aiofiles.open(filename, mode="r") as f:
+        query = await f.read()  # Await the read operation
+        await db.exec(query)
 
 
-def setup():
-    global db
-    db.connect()
-    db.create_tables([Location_Metadata, Forecast])
+async def _create_tables(db: onlymaps.AsyncDatabase):
+    await asyncio.gather(
+        *(
+            _create_table(db, table_name)
+            for table_name in ("location_metadata", "location_alias", "graphics")
+        )
+    )
 
-
-if __name__ == "__main__":
-    setup()
